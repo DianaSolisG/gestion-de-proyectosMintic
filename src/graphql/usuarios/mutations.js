@@ -1,0 +1,33 @@
+import {gql} from '@apollo/client';
+
+const EDITAR_USUARIO = gql `
+
+mutation EditarUsuario(
+    $id: String!,
+    $nombre: String!,
+    $apellido: String!,
+    $identificacion: String!,
+    $correo: String!,
+    $rol: Enum_Rol!
+    ) {
+        editarUsuario(
+            _id: $id,
+            nombre: $nombre,
+            apellido: $apellido,
+            identificacion: $identificacion,
+            correo: $correo,
+            rol: $rol) {
+                _id
+                nombre
+                apellido
+                correo
+                estado
+                identificacion
+                rol
+      }
+    }
+
+
+`;
+
+export {EDITAR_USUARIO};
