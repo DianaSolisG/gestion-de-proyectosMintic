@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useQuery } from '@apollo/client'
+import { useQuery, useMutation } from '@apollo/client'
 import { GET_USUARIO } from 'graphql/usuarios/queries';
 import Input from 'components/Input';
 import ButtonLoading from 'components/ButtonLoading';
 import useFormData from 'hooks/useFormData';
+import { EDITAR_USUARIO } from 'graphql/usuarios/mutations';
+import { toast } from 'react-toastify';
+import DropDown from 'components/Dropdown';
+import { Enum_EstadoUsuario } from 'utils/enum';
 
 const EditarUsuario = () => {
 
@@ -12,18 +16,47 @@ const EditarUsuario = () => {
 
     const { _id } = useParams();
 
-    const {data,error,loading} = useQuery(GET_USUARIO,{
+    const {
+        data:queryData,
+        error:queryError,
+        loading:queryLoading
+    } = useQuery(GET_USUARIO,{
         variables:{_id},
     });
 
-    if (loading) return <div>Cargando.....</div>;
+    const [editarUsuario, {
+        data:mutationData,
+        loading:mutationLoading,
+        error:mutationError
+    }] = useMutation(EDITAR_USUARIO);
 
     const submitForm = (e)=>{
         e.preventDefault();
-        console.log('fd', formData)
+        console.log('fd', formData);
+        delete formData.rol;
+        editarUsuario({
+            variables:{_id, ...formData}
+        })
     }
 
-    console.log(data)
+    useEffect(() => {
+        if (mutationData){
+            toast.success('Usuario modificado con exito')
+        }
+    }, [mutationData])
+
+    useEffect(()=>{
+        if(mutationError){
+            toast.error('Error modificando el usuario');
+        }
+        if(queryError){
+            toast.error('Error consultando el usuario')
+        }
+    },[queryError, mutationError])
+
+    if (queryLoading) return <div>Cargando.....</div>;
+
+
     return (
     <div className='flew flex-col w-full h-full items-center justify-center p-10'>
         <Link>
@@ -40,40 +73,41 @@ const EditarUsuario = () => {
             label='Nombre de la persona:'
             type= 'text'
             nome= 'nombre'
-            defaulValue={data.Usuario.nombre}
+            defaulValue={queryData.Usuario.nombre}
             required={true}
             />
             <Input
             label='Apellido de la persona:'
             type= 'text'
             nome= 'apellido'
-            defaulValue={data.Usuario.apellido}
+            defaulValue={queryData.Usuario.apellido}
             required={true}
             />
             <Input
             label='Correo de la persona:'
             type= 'email'
             nome= 'correo'
-            defaulValue={data.Usuario.correo}
+            defaulValue={queryData.Usuario.correo}
             required={true}
             />
             <Input
             label='Identificación de la persona:'
             type= 'text'
             nome= 'identificacion'
-            defaulValue={data.Usuario.identificacion}
+            defaulValue={queryData.Usuario.identificacion}
             required={true}
             />
-            {/* <DropDown
-            label='Rol de la persona:'
-            nome= 'rol'
-            defaulValue={userData.rol}
+            <DropDown
+            label='Estado de la persona:'
+            nome= 'estado'
+            defaulValue={queryData.Usuario.estado}
             required={true}
-            options={Enum_Rol}
-            /> */}
+            options={Enum_EstadoUsuario}
+            />
+            <span>Rol del Usuario: {queryData.Usuario.rol}</span>
             <ButtonLoading
-            disabled={false}
-            loading = {false}
+            disabled={Object.keys(formData).length===0}
+            loading = {mutationLoading}
             text='Confirmar'
             />
         </form>

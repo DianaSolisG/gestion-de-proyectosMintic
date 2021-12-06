@@ -11,6 +11,8 @@ import EditarUsuario from 'pages/usuarios/editar';
 import Category1 from 'pages/category1/CategoryPage1';
 import 'styles/globals.css';
 import 'styles/tabla.css';
+import AuthLayout from 'layouts/AuthLayouts';
+import Register from 'pages/auth/register'
 
 // import PrivateRoute from 'components/PrivateRoute';
 
@@ -20,7 +22,7 @@ import 'styles/tabla.css';
 // })
 
 const client = new ApolloClient({
-  uri: 'servidor-gql-mintic2021.herokuapp.com/graphql',
+  uri:'http://localhost:4000/graphql',
   cache: new InMemoryCache(),
 })
 
@@ -40,6 +42,9 @@ function App() {
               <Route path='category1' element={<IndexCategory1 />} />
               <Route path='category1/page1' element={<Category1 />} />
             </Route>
+            <Routes path='/auth' element={<AuthLayout />}>
+              <Route path='register' element={<Register />}/>
+            </Routes>
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
