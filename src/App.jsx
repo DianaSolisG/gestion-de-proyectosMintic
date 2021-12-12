@@ -13,24 +13,47 @@ import 'styles/globals.css';
 import 'styles/tabla.css';
 import AuthLayout from 'layouts/AuthLayouts';
 import Register from 'pages/auth/register'
+import Login from 'pages/auth/login';
+import { AuthContext } from 'context/authContext';
+import { setContext } from '@apollo/client/link/context'
+
 
 // import PrivateRoute from 'components/PrivateRoute';
 
 
-// const httpLink = createHttpLink({
-//   uri:"https://servidor-gql-mintic2021.herokuapp.com/graphql",
-// })
+const httpLink = createHttpLink({
+   uri:"http://localhost:4000/graphql",
+})
+
+const authLink = setContext((_, { headers }) => {
+  const token = JSON.parse(localStorage.getItem('token'));
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
 
 const client = new ApolloClient({
-  uri:'http://localhost:4000/graphql',
   cache: new InMemoryCache(),
-})
+  link: authLink.concat(httpLink),
+});
 
 function App() {
   const [userData, setUserData] = useState({});
+  const [authToken, setAuthToken] = useState('');
+
+  const setToken = (token) => {
+    setAuthToken(token);
+    if(token){
+      localStorage.setItem('token', JSON.stringify(token));
+    }
+  }
 
   return (
     <ApolloProvider client={client}>
+      <AuthContext.Provider value={{ authToken, setAuthToken, setToken }}>
       <UserContext.Provider value={{ userData, setUserData }}>
         <BrowserRouter>
           <Routes>
@@ -44,10 +67,12 @@ function App() {
             </Route>
             <Routes path='/auth' element={<AuthLayout />}>
               <Route path='register' element={<Register />}/>
+              <Route path='login' element={<Login />}/>
             </Routes>
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
+      </AuthContext.Provider>
     </ApolloProvider>
   );
 }
