@@ -21,7 +21,7 @@ import jwt_decode from 'jwt-decode';
 
 
 const httpLink = createHttpLink({
-   uri:"http://localhost:4000/graphql",
+   uri:"https://servidor-gql-mintic2021.herokuapp.com/graphql",
 })
 
 const authLink = setContext((_, { headers }) => {
