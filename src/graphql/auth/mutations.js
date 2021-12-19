@@ -40,9 +40,9 @@ mutation Login(
 }
 `
 
-const VALIDATE_TOKEN = gql `
-mutation ValidateToken {
-  validateToken {
+const REFRESH_TOKEN = gql `
+mutation RefreshToken {
+    refreshToken {
     token
     error
   }
@@ -50,4 +50,4 @@ mutation ValidateToken {
 
 `
 
-export { REGISTRO, LOGIN, VALIDATE_TOKEN };
+export { REGISTRO, LOGIN, REFRESH_TOKEN };

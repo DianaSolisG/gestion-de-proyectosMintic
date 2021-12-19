@@ -21,11 +21,9 @@ const Register = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    console.log("Variables: ", formData)
     registro({variables:formData})
 };
   useEffect(() => {
-      console.log('data mutation', dataMutation);
       if (dataMutation){
         if (dataMutation.registro.token){
           setToken(dataMutation.registro.token);

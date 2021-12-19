@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PrivateLayout from 'layouts/PrivateLayout';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserContext } from 'context/userContext';
 import { ApolloProvider, ApolloClient, createHttpLink, InMemoryCache} from '@apollo/client';
 import Index from 'pages/Index';
 import Page2 from 'pages/Page2';
-import IndexCategory1 from 'pages/category1/Index';
 import IndexUsuarios from 'pages/usuarios';
 import EditarUsuario from 'pages/usuarios/editar';
-import Category1 from 'pages/category1/CategoryPage1';
 import 'styles/globals.css';
 import 'styles/tabla.css';
 import AuthLayout from 'layouts/AuthLayouts';
@@ -16,6 +14,7 @@ import Register from 'pages/auth/register'
 import Login from 'pages/auth/login';
 import { AuthContext } from 'context/authContext';
 import { setContext } from '@apollo/client/link/context'
+import jwt_decode from 'jwt-decode';
 
 
 // import PrivateRoute from 'components/PrivateRoute';
@@ -45,11 +44,27 @@ function App() {
   const [authToken, setAuthToken] = useState('');
 
   const setToken = (token) => {
+    console.log('set token', token)
     setAuthToken(token);
     if(token){
       localStorage.setItem('token', JSON.stringify(token));
+    }else{
+      localStorage.removeItem('token')
     }
   }
+  useEffect(() => {
+    if(authToken){
+      const decoded = jwt_decode(authToken);
+      setUserData({
+        _id:decoded._id,
+        nombre:decoded.nombre,
+        apellido: decoded.apellido,
+        identificacion: decoded.identificacion,
+        correo: decoded.corro,
+        rol: decoded.rol,
+      })
+    }
+  }, [authToken]);
 
   return (
     <ApolloProvider client={client}>
@@ -62,8 +77,6 @@ function App() {
               <Route path='/usuarios' element={<IndexUsuarios />} />
               <Route path='/usuarios/editar/:_id' element={<EditarUsuario />} />
               <Route path='page2' element={<Page2 />} />
-              <Route path='category1' element={<IndexCategory1 />} />
-              <Route path='category1/page1' element={<Category1 />} />
             </Route>
             <Routes path='/auth' element={<AuthLayout />}>
               <Route path='register' element={<Register />}/>
@@ -75,6 +88,6 @@ function App() {
       </AuthContext.Provider>
     </ApolloProvider>
   );
-}
+};
 
 export default App;
