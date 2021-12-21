@@ -1,19 +1,25 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
-const CREAR_INSCRIPCION = gql`
-  mutation Mutation($proyecto: String!, $estudiante: String!) {
-    crearInscripcion(proyecto: $proyecto, estudiante: $estudiante) {
+const GET_INSCRIPCIONES = gql`
+  query Inscripciones {
+    Inscripciones {
       _id
+      estado
+      estudiante {
+        _id
+        nombre
+        apellido
+        correo
+      }
+      proyecto {
+        _id
+        nombre
+        lider {
+          _id
+        }
+      }
     }
   }
 `;
 
-const APROBAR_INSCRIPCION = gql`
-  mutation AprobarInscripcion($aprobarInscripcionId: String!) {
-    aprobarInscripcion(id: $aprobarInscripcionId) {
-      _id
-    }
-  }
-`;
-
-export { CREAR_INSCRIPCION, APROBAR_INSCRIPCION };
+export { GET_INSCRIPCIONES };
