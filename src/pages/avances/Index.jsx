@@ -35,7 +35,7 @@ const IndexAvance = () => {
         </h1>
         <button
           onClick={() => setOpenDialog(true)}
-          className='flex-end bg-indigo-500'
+          className='flex-end bg-blue-500'
           type='button'
         >
           Crear nuevo avance
@@ -93,7 +93,7 @@ const IndexAvance = () => {
             onClick={() => {
               setOpenDialog(true);
             }}
-            className='bg-indigo-500 p-2  my-2 rounded-lg w-48 text-white hover:bg-indigo-700'
+            className='bg-blue-500 p-2  my-2 rounded-lg w-48 text-white hover:bg-blue-700'
             type='button'
           >
             Agregar observacion

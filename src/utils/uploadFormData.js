@@ -9,11 +9,11 @@ const uploadFormData = async (formData) => {
       ) {
         const dt = new FormData();
         dt.append('file', formDataCopy[field]);
-        dt.append('upload_preset', 'vs8gsai6');
-        dt.append('cloud_name', 'danyel117');
+        dt.append('upload_preset', '');
+        dt.append('cloud_name', '');
         const options = {
           method: 'POST',
-          url: 'https://api.cloudinary.com/v1_1/danyel117/image/upload',
+          url: '',
           data: dt,
         };
         await axios.request(options).then((response) => {

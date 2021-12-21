@@ -17,4 +17,4 @@ const AccordionDetailsStyled = styled((props) => (
     backgroundColor: '#ccc',
 }));
 
-export { AccordionStyled, AccordionSummaryStyled, AccordionDetailsStyled };                
+export { AccordionStyled, AccordionSummaryStyled, AccordionDetailsStyled };

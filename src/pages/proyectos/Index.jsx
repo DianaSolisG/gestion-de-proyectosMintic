@@ -41,7 +41,7 @@ const IndexProyectos = () => {
           <div className="my-2 self-end">
             <button
               type="button"
-              className="bg-indigo-500 text-gray-50 p-2 rounded-lg shadow-lg hover:bg-indigo-400"
+              className="bg-blue-500 text-gray-50 p-2 rounded-lg shadow-lg hover:bg-blue-400"
             >
               <Link to="/proyectos/nuevo">Crear nuevo proyecto</Link>
             </button>
