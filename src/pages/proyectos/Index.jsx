@@ -6,7 +6,7 @@ import {
   AccordionDetailsStyled,
 } from "components/Accordion";
 import { useQuery, useMutation } from "@apollo/client";
-import { PROYECTOS } from "graphql/proyectos/queries";
+import { PROYECTOS } from "../../graphql/proyectos/queries";
 import DropDown from "components/Dropdown";
 import ReactLoading from "react-loading";
 import { Dialog } from "@mui/material";
@@ -89,7 +89,7 @@ const AccordionProyecto = ({ proyecto }) => {
               inscripciones={proyecto.inscripciones}
             />
           </PrivateComponent>
-          <div>Liderado Por: {proyecto.lider.correo}</div>
+          <div>Liderado Por: {"proyecto.lider.nombre"}</div>
           <div className="flex">
             {proyecto.objetivos.map((objetivo, index) => (
               <Objetivo
