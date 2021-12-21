@@ -21,23 +21,15 @@ const PrivateLayout = () => {
   }, [refreshToken]);
 
   useEffect(() => {
-    try {
-      if (dataMutation.refreshToken.token) {
-        setToken(dataMutation.refreshToken.token);
-      }
-    } catch (error) {
-      setToken(null);
-      navigate("/auth/login");
-    }
-    /*     if (dataMutation) {
-      if (dataMutation.refreshToken.token) {
+    if (dataMutation) {
+      if (dataMutation?.refreshToken?.token) {
         setToken(dataMutation.refreshToken.token);
       } else {
         setToken(null);
         navigate("/auth/login");
       }
       setLoadingAuth(false);
-    } */
+    }
   }, [dataMutation, setToken, setLoadingAuth, navigate]);
 
   if (loadingMutation || loadingAuth) return <div>Loading.....</div>;
