@@ -46,17 +46,11 @@ const Logout = () => {
 
 const Logo = () => {
   return (
-<<<<<<< HEAD
-    <div className='py-3 w-full flex flex-col items-center justify-center'>
-      <img src='Logotipo' alt='Logo' className='h-16' />
-      <span className='my-2 text-xl font-bold text-center'>Gestión de Proyectos</span>
-=======
     <div className="py-3 w-full flex flex-col items-center justify-center">
       <img src="logo.png" alt="Logo" className="h-16" />
       <span className="my-2 text-xl font-bold text-center">
         Gestión de Proyectos
       </span>
->>>>>>> 7a2c6afa6bc916567ad5685d2d20c42ccafbd2a3
     </div>
   );
 };
