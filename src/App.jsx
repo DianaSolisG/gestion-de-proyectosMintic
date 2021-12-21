@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserContext } from 'context/userContext';
 import { ApolloProvider, ApolloClient, createHttpLink, InMemoryCache} from '@apollo/client';
 import Index from 'pages/Index';
-import Page2 from 'pages/Page2';
 import IndexUsuarios from 'pages/usuarios';
 import EditarUsuario from 'pages/usuarios/editar';
 import 'styles/globals.css';
@@ -15,6 +14,11 @@ import Login from 'pages/auth/login';
 import { AuthContext } from 'context/authContext';
 import { setContext } from '@apollo/client/link/context'
 import jwt_decode from 'jwt-decode';
+import IndexProyectos from 'pages/proyectos/Index';
+import NuevoProyecto from 'pages/proyectos/NuevoProyecto';
+import IndexInscripciones from 'pages/inscripciones'
+import Profiler from 'pages/profile';
+import IndexAvance from 'pages/avances'
 
 
 // import PrivateRoute from 'components/PrivateRoute';
@@ -76,7 +80,11 @@ function App() {
               <Route path='' element={<Index />} />
               <Route path='/usuarios' element={<IndexUsuarios />} />
               <Route path='/usuarios/editar/:_id' element={<EditarUsuario />} />
-              <Route path='page2' element={<Page2 />} />
+              <Route path='/proyectos' element={<IndexProyectos />} />
+              <Route path='/proyectos/nuevo' element={<NuevoProyecto />} />
+              <Route path='/inscripciones' element={<IndexInscripciones />} />
+              <Route path='/avances/:projectid' element={<IndexAvance />} />
+              <Route path='/perfil' element={<Profile />} />
             </Route>
             <Routes path='/auth' element={<AuthLayout />}>
               <Route path='register' element={<Register />}/>
