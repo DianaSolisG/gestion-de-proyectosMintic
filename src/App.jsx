@@ -28,7 +28,7 @@ import IndexAvance from "./pages/avances/Index";
 // import PrivateRoute from 'components/PrivateRoute';
 
 const httpLink = createHttpLink({
-  uri: "https://servidor-gql-mintic2021.herokuapp.com/graphql",
+  uri: "https://back-diana-mintic-gh.herokuapp.com/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
